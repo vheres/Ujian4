@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import firebase from 'firebase';
+import { connect } from 'react-redux';
 import { alreadyLogin, notLoginYet } from '../actions';
 import Main from './Main';
 
 class AppInit extends Component {
     componentWillMount() {
         const config = {
-            apiKey: 'AIzaSyCmZIGMxhm1E2CXn8M2-BRff0WOrY-4DGo',
-            authDomain: 'manager-practice-a968d.firebaseapp.com',
-            databaseURL: 'https://manager-practice-a968d.firebaseio.com',
-            projectId: 'manager-practice-a968d',
-            storageBucket: 'manager-practice-a968d.appspot.com',
-            messagingSenderId: '438586394558'
-            };
+            apiKey: "AIzaSyCIeX0Gvn46TKsERM-6YtkIXjt8_5mBolY",
+            authDomain: "ujian4-4906c.firebaseapp.com",
+            databaseURL: "https://ujian4-4906c.firebaseio.com",
+            projectId: "ujian4-4906c",
+            storageBucket: "ujian4-4906c.appspot.com",
+            messagingSenderId: "908535031208"
+        };
         firebase.initializeApp(config);
 
         firebase.auth().onAuthStateChanged((user) => {
