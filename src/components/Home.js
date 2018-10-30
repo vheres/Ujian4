@@ -8,7 +8,7 @@ import PictureCard from './PictureCard';
 
 const styles = {
     paddingView: {
-        paddingBottom: 80
+        flex: 1
     }
 };
 
@@ -39,10 +39,6 @@ class Home extends Component {
         const {paddingView} = styles;
         return (
             <View style={paddingView}>
-                <Header
-                    placement="left"
-                    centerComponent={{ text: 'Home', style: { color: '#fff' }}}
-                />
                 <ListView
                     enableEmptySections
                     dataSource={this.dataSource}

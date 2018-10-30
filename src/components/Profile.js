@@ -30,12 +30,13 @@ class Profile extends Component {
         this.props.pictureUpdate('image', clipboardContent)
       };
 
-    render() {
+    render() { 
+        const { email } = this.props
         return (
             <View>
                 <Header
                     placement="left"
-                    centerComponent={{ text: 'Profile', style: { color: '#fff' } }}
+                    centerComponent={{ text: email, style: { color: '#fff' } }}
                     rightComponent={
                         <Icon
                             name='sign-out'
@@ -77,10 +78,10 @@ class Profile extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { user } = state.auth;
+    const { user, email } = state.auth;
     const { image, caption } = state.pictForm;
 
-    return { user, image, caption };
+    return { user, email, image, caption };
 }
 
 export default connect(mapStateToProps, { logoutUser, pictureUpdate, pictureCreate })(Profile);
