@@ -9,7 +9,7 @@ export default (state = INITIAL_STATE, action) => {
         case PASSWORD_CHANGED:
             return { ...state, password: action.payload };
         case LOGIN_USER_SUCCESS:
-            return { ...state, user: action.payload };
+            return { ...state, email: action.payload.email, user: action.payload };
         case LOGIN_USER_FAIL:
             return { ...state, loading: false, error: 'Authentication Failed.'};
         case LOGIN_USER:
