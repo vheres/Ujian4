@@ -1,26 +1,18 @@
-import { DrawerNavigator } from 'react-navigation';
-import EmployeeList from './EmployeeList';
-import EmployeeCreate from './EmployeeCreate';
-import EmployeeEdit from './EmployeeEdit';
+import { createBottomTabNavigator } from 'react-navigation';
 import Profile from './Profile';
+import Home from './Home';
 
-export default DrawerNavigator(
-    {
-        EmployeeList: {
-            screen: EmployeeList
-        },
-        AddNewEmployee: {
-            screen: EmployeeCreate
-        },
-        EditEmployee: {
-            screen: EmployeeEdit
+export default createBottomTabNavigator(
+    {   
+        Home: {
+            screen: Home
         },
         Profile: {
             screen: Profile
         }
     },
     {
-        initialRouteName: 'EmployeeList',
+        initialRouteName: 'Home',
         headerMode: 'none'
     }
 );

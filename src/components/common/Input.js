@@ -38,6 +38,7 @@ const Input = ({ label, placeholder, secureTextEntry, value, onChangeText }) => 
                 style={inputStyle}
                 value={value}
                 onChangeText={onChangeText}
+                selectTextOnFocus={true}
             />
         </View>
     )

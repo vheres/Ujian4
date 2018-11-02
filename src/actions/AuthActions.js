@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER, LOGOUT_USER, NOT_LOGIN_YET } from './types';
+import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER, LOGOUT_USER, NOT_LOGIN_YET, CLEAR_FORM } from './types';
 // import { userInfo } from 'os';
 
 export const emailChanged = (text) => {
@@ -39,6 +39,7 @@ export const logoutUser = () => {
     return (dispatch) => {
         firebase.auth().signOut();
         dispatch({ type: LOGOUT_USER });
+        dispatch({ type: CLEAR_FORM });
     };
 };
 

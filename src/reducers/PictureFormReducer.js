@@ -1,17 +1,18 @@
-import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE } from '../actions/types';
+import { PICTURE_UPDATE, PICTURE_CREATE, CLEAR_FORM } from '../actions/types';
 
 const INITIAL_STATE = {
-    name: '',
-    phone: '',
-    shift: ''
+    user: '',
+    image: '',
+    caption: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case EMPLOYEE_UPDATE:
-            //action.payload === {prop: 'name', value: 'jane' }
+        case PICTURE_UPDATE:
             return { ...state, [action.payload.prop]: action.payload.value }
-        case EMPLOYEE_CREATE:
+        case PICTURE_CREATE:
+            return INITIAL_STATE;
+        case CLEAR_FORM:
             return INITIAL_STATE;
         default:
             return state;

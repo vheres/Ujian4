@@ -1,54 +1,87 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Header } from 'react-native-elements';
+import { View, Clipboard } from 'react-native';
+import { Header, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { Card, CardSection, Button } from './common';
-import { logoutUser } from '../actions';
+import { CardSection, Button, Input } from './common';
+import { logoutUser, pictureUpdate, pictureCreate } from '../actions';
 
 class Profile extends Component {
-
-    state = { email: '' }
-    componentWillMount() {
-        if (this.props.user) {
-            this.setState({ email: this.props.user.email });
-        }
-    }
-
     logOut = () => {
         this.props.logoutUser();
         this.props.screenProps.rootNavigation.navigate('Login');
     }
 
-    render() {
+    onImageChange = (text) => {
+        this.props.pictureUpdate('image', text);
+    }
+
+    onCaptionChange = (text) => {
+        this.props.pictureUpdate('caption', text);
+    }
+
+    onPostClick = () => {
+        const { image, caption } = this.props;
+
+        this.props.pictureCreate(this.props.user.email, image, caption)
+    }
+
+    readFromClipboard = async () => {   
+        const clipboardContent = await Clipboard.getString();   
+        this.props.pictureUpdate('image', clipboardContent)
+      };
+
+    render() { 
+        const { email } = this.props
         return (
             <View>
                 <Header
                     placement="left"
-                    leftComponent={{ icon: 'menu', color: '#fff', onPress: () => this.props.navigation.toggleDrawer()}}
-                    centerComponent={{ text: 'Profile', style: { color: '#fff' } }}
-                    rightComponent={{ icon: 'home', color: '#fff', onPress: () => this.props.navigation.navigate('Employee List') }}
+                    centerComponent={{ text: email, style: { color: '#fff' } }}
+                    rightComponent={
+                        <Icon
+                            name='sign-out'
+                            type='font-awesome'
+                            color='#fff'
+                            onPress={this.logOut}
+                        />
+                    }
                 />
-                <Card>
+                <CardSection>
+                    <Button onPress={this.readFromClipboard}>
+                        Copy from Clipboard
+                    </Button>
+                </CardSection>
+                <CardSection>
+                    <Input
+                        label="Image"
+                        placeholder="Image"
+                        value={this.props.image}
+                        onChangeText={this.onImageChange}
+                    />
+                </CardSection>
+                <CardSection>
+                    <Input
+                        label="Caption"
+                        placeholder="Caption"
+                        value={this.props.caption}
+                        onChangeText={this.onCaptionChange}
+                    />
+                </CardSection>
                     <CardSection>
-                        <Text>
-                            Email : {this.state.email}
-                        </Text>
-                    </CardSection>
-                    <CardSection>
-                        <Button onPress={this.logOut}>
-                            Log Out
+                        <Button onPress={this.onPostClick}>
+                            Post
                         </Button>
                     </CardSection>
-                </Card>
             </View>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    const { user } = state.auth;
+    const { user, email } = state.auth;
+    const { image, caption } = state.pictForm;
 
-    return { user };
+    return { user, email, image, caption };
 }
 
-export default connect(mapStateToProps, { logoutUser })(Profile);
+export default connect(mapStateToProps, { logoutUser, pictureUpdate, pictureCreate })(Profile);
